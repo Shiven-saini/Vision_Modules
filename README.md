@@ -126,22 +126,18 @@ Outputs **precision, recall, and report.html**.
 
 ---
 
-🤝 Collaboration
-This repository is built with collaboration in mind. Robora is working closely with students, universities, and research groups to advance robotics and blockchain together.
+## 🤝 Collaboration  
 
-How to contribute
+This repository is built with collaboration in mind. Robora is working closely with students, universities, and research groups to advance robotics and blockchain together.  
 
-Fork this repository
+### How to contribute  
+1. Fork this repository  
+2. Create a new branch for your feature or fix  
+3. Commit your changes  
+4. Push your branch  
+5. Open a pull request  
 
-Create a new branch for your feature or fix
-
-Commit your changes
-
-Push your branch
-
-Open a pull request
-
-All contributions are welcome, whether through research ideas, code improvements, documentation, or new demos.
+All contributions are welcome, whether through research ideas, code improvements, documentation, or new demos.  
 
 ---
 
