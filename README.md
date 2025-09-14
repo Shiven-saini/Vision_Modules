@@ -1,6 +1,12 @@
 # Robora Vision Modules
 
-A small Python library that provides **plug-and-play vision skills** reusable across Robora demos and inside robot “brains”.
+Robora Vision Modules
+
+Robora Vision Modules is a Python library that provides plug and play vision skills reusable across Robora demos and inside robot “brains.”
+
+This repository is part of Robora’s initiative to collaborate with students and researchers from different universities. The goal is to expand the reach of robotics combined with blockchain and create an open environment where knowledge, tools, and real world applications can grow through collaboration.
+
+If you are a student, researcher, or developer, you are welcome to contribute. Fork the repository, make improvements, and submit a pull request. Together we can advance robotics x blockchain and push forward the adoption of physical AI.
 
 ---
 
@@ -120,6 +126,37 @@ Outputs **precision, recall, and report.html**.
 
 ---
 
+🤝 Collaboration
+This repository is built with collaboration in mind. Robora is working closely with students, universities, and research groups to advance robotics and blockchain together.
+
+How to contribute
+
+Fork this repository
+
+Create a new branch for your feature or fix
+
+Commit your changes
+
+Push your branch
+
+Open a pull request
+
+All contributions are welcome, whether through research ideas, code improvements, documentation, or new demos.
+
+---
+
+🌐 Community and Links
+
+Website: robora.xyz
+
+X: x.com/userobora
+
+Telegram: t.me/roboratg
+
+Medium: robora.medium.com
+
+---
+
 ## 👥 Authors
 Maintained by **Robora**.  
-Contributor: [@ncquy](https://github.com/ncquy), *Updating...* 
+Contributor: [@ncquy](https://github.com/ncquy), [@TianleiZhou](https://github.com/TianleiZhou), *Updating...* 
