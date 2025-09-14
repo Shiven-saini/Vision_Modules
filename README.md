@@ -147,13 +147,13 @@ All contributions are welcome, whether through research ideas, code improvements
 
 🌐 Community and Links
 
-Website: robora.xyz
+[Website](https://robora.xyz)
 
-X: x.com/userobora
+[X](https://x.com/userobora)
 
-Telegram: t.me/roboratg
+[Telegram](https://t.me/roboratg)
 
-Medium: robora.medium.com
+[Medium](https://robora.medium.com)
 
 ---
 
