@@ -1,7 +1,5 @@
 # Robora Vision Modules
 
-Robora Vision Modules
-
 Robora Vision Modules is a Python library that provides plug and play vision skills reusable across Robora demos and inside robot “brains.”
 
 This repository is part of Robora’s initiative to collaborate with students and researchers from different universities. The goal is to expand the reach of robotics combined with blockchain and create an open environment where knowledge, tools, and real world applications can grow through collaboration.
