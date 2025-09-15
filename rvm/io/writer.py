@@ -14,3 +14,11 @@ def save_video(output_path, fps, width, height):
 
 def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
+
+
+def save_image(image, out_dir, filename):
+    """Save an image to the given output directory."""
+    ensure_dir(out_dir)
+    out_path = os.path.join(out_dir, filename)
+    cv.imwrite(out_path, image)
+    return out_path
