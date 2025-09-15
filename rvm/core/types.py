@@ -24,3 +24,15 @@ class Mask:
 
     def to_dict(self):
         return asdict(self)
+
+
+@dataclass
+class Marker:
+    id: int
+    corners: List[Tuple[int, int]]
+
+
+@dataclass
+class QRCode:
+    data: str
+    corners: List[Tuple[int, int]]

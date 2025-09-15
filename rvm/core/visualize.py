@@ -38,3 +38,31 @@ def draw_masks(image, masks, alpha=0.5):
     # Blend once
     blended = cv2.addWeighted(overlay, alpha, image, 1 - alpha, 0)
     return blended
+
+def draw_markers(image, corners, ids):
+    """
+    Draw detected ArUco markers with bounding boxes and IDs.
+
+    Args:
+        image (np.ndarray): Input image to draw on (BGR).
+        corners (list): Detected marker corners from cv.aruco.detectMarkers.
+        ids (np.ndarray): Detected marker IDs.
+    """
+    if ids is None or len(corners) == 0:
+        return image
+
+    for corner, marker_id in zip(corners, ids.flatten()):
+        pts = corner.reshape((4, 2)).astype(int)
+        # Draw green polygon
+        cv2.polylines(image, [pts], True, (0, 255, 0), 2)
+        # Draw ID
+        cv2.putText(
+            image,
+            f"ID {marker_id}",
+            tuple(pts[0]),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (0, 255, 0),
+            2
+        )
+    return image
