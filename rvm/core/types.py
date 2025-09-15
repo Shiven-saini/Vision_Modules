@@ -15,3 +15,12 @@ class Box:
     def to_dict(self):
         """Convert Box object to dictionary for JSON serialization."""
         return asdict(self)
+
+@dataclass
+class Mask:
+    segmentation: List[List[int]]   # polygon points
+    confidence: float
+    class_id: int
+
+    def to_dict(self):
+        return asdict(self)
