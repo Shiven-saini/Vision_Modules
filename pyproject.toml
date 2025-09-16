@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robora-vision-modules"
+version = "0.1.0"
+description = "Reusable vision modules (detection, segmentation, marker detection, COCO evaluation) for Robora demos"
+authors = [
+  { name = "Your Name", email = "your.email@example.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "torch>=2.2",
+    "ultralytics>=8.1",
+    "opencv-python>=4.9",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "pyzbar>=0.1.9",
+    "pycocotools>=2.0.7",
+]
+
+[project.scripts]
+rvm-detect = "rvm.cli.detect:main"
+rvm-segment = "rvm.cli.segment:main"
+rvm-markers = "rvm.cli.markers:main"
+rvm-eval-coco = "rvm.cli.eval_coco:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
