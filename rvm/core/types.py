@@ -1,6 +1,6 @@
-from dataclasses import dataclass
-from typing import List, Tuple
+# rvm/core/types.py
 from dataclasses import dataclass, asdict
+from typing import List, Tuple
 
 
 @dataclass
@@ -16,11 +16,12 @@ class Box:
         """Convert Box object to dictionary for JSON serialization."""
         return asdict(self)
 
+
 @dataclass
 class Mask:
-    segmentation: List[List[int]]   # polygon points
+    segmentation: List[List[int]]
     confidence: float
-    class_id: int
+    class_id: int = 0
 
     def to_dict(self):
         return asdict(self)
@@ -31,8 +32,14 @@ class Marker:
     id: int
     corners: List[Tuple[int, int]]
 
+    def to_dict(self):
+        return asdict(self)
+
 
 @dataclass
 class QRCode:
     data: str
     corners: List[Tuple[int, int]]
+
+    def to_dict(self):
+        return asdict(self)
