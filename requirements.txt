@@ -1,0 +1,7 @@
+torch>=2.2
+ultralytics>=8.1
+opencv-python>=4.9
+numpy>=1.26
+matplotlib>=3.8
+pyzbar>=0.1.9
+pycocotools>=2.0.7
