@@ -1,21 +1,15 @@
-# demos/segment_image.py
-import sys
-import os
-from rvm.segment.sam_lite import SamSegmenter
+# demo/segment_image.py
+import argparse
+from rvm.api import segment_image
 
 def main():
-    if len(sys.argv) < 3:
-        print("Usage: python -m demos.segment_image input.jpg output_dir/")
-        return
+    parser = argparse.ArgumentParser(description="Run segmentation on an image")
+    parser.add_argument("--image", required=True, help="Path to input image")
+    parser.add_argument("--out", default="results", help="Output directory")
+    args = parser.parse_args()
 
-    image_path = sys.argv[1]
-    out_dir = sys.argv[2]
-
-    os.makedirs(out_dir, exist_ok=True)
-
-    seg = SamSegmenter()
-    results = seg.run(image_path)
-    seg.save(image_path, results, out_dir)
+    masks = segment_image(args.image, out_dir=args.out)
+    print("Segmentation results:", masks)
 
 if __name__ == "__main__":
     main()
