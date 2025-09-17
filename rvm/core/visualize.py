@@ -110,27 +110,32 @@ def draw_markers(image: np.ndarray, markers: List[Marker]) -> np.ndarray:
 
 def draw_qr_codes(image: np.ndarray, qr_codes: List[QRCode]) -> np.ndarray:
     """
-    Draw detected QR codes on the image.
+    Draw detected QR codes on the image with text at top-right of bounding box.
     """
     img = image.copy()
     for i, qr_code in enumerate(qr_codes):
-
+        # Use index-based color for QR codes
         color = _get_color_for_id(i + 1000)  # Offset to differentiate from markers
         
         # Draw bounding polygon
         corners = np.array(qr_code.corners, dtype=np.int32).reshape((-1, 1, 2))
         cv2.polylines(img, [corners], True, color, 2)
         
-        # Calculate center for text placement
-        cX = int(np.mean([pt[0] for pt in qr_code.corners]))
-        cY = int(np.mean([pt[1] for pt in qr_code.corners]))
+        # Calculate top-right position for text
+        max_x = max(pt[0] for pt in qr_code.corners)
+        min_y = min(pt[1] for pt in qr_code.corners)
         
-        # Draw QR label
-        cv2.putText(img, "QR", (cX - 10, cY - 10),
+        # Add padding to avoid overlap with bounding box
+        text_x = max_x + 5
+        text_y = min_y - 5
+        
+        # Draw QR label at top-right
+        cv2.putText(img, "QR", (text_x, text_y),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2, cv2.LINE_AA)
         
+        # Draw truncated data below the label
         data_text = qr_code.data[:20] + "..." if len(qr_code.data) > 20 else qr_code.data
-        cv2.putText(img, data_text, (cX - 50, cY + 20),
+        cv2.putText(img, data_text, (text_x, text_y + 20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
     
     return img
@@ -138,26 +143,32 @@ def draw_qr_codes(image: np.ndarray, qr_codes: List[QRCode]) -> np.ndarray:
 
 def draw_barcodes(image: np.ndarray, barcodes: List[BarCode]) -> np.ndarray:
     """
-    Draw detected barcodes on the image.
+    Draw detected barcodes on the image with text at top-right of bounding box.
     """
     img = image.copy()
     for i, barcode in enumerate(barcodes):
-        
+        # Use index-based color for barcodes
         color = _get_color_for_id(i + 2000)  # Different offset for barcodes
         
         # Draw bounding polygon
         corners = np.array(barcode.corners, dtype=np.int32).reshape((-1, 1, 2))
         cv2.polylines(img, [corners], True, color, 2)
-
-        cX = int(np.mean([pt[0] for pt in barcode.corners]))
-        cY = int(np.mean([pt[1] for pt in barcode.corners]))
         
-        # Draw barcode label
-        cv2.putText(img, "BC", (cX - 10, cY - 10),
+        # Calculate top-right position for text
+        max_x = max(pt[0] for pt in barcode.corners)
+        min_y = min(pt[1] for pt in barcode.corners)
+        
+        # Add padding to avoid overlap with bounding box
+        text_x = max_x + 5
+        text_y = min_y - 5
+        
+        # Draw barcode label at top-right
+        cv2.putText(img, "BC", (text_x, text_y),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2, cv2.LINE_AA)
- 
+        
+        # Draw truncated data below the label
         data_text = barcode.data[:15] + "..." if len(barcode.data) > 15 else barcode.data
-        cv2.putText(img, data_text, (cX - 40, cY + 20),
+        cv2.putText(img, data_text, (text_x, text_y + 20),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.4, color, 1, cv2.LINE_AA)
     
     return img
