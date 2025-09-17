@@ -34,7 +34,8 @@ Vision_Modules/
 │   ├── segment/
 │   │   └── sam_lite.py       # segmentation wrapper
 │   ├── markers/
-│   │   └── aruco.py          # marker / QR detection
+│   │   └── aruco.py          # marker detection
+    |   └── barcodes.py       # QR Codes & Bar Codes detection
 │   └── io/
 │       ├── loader.py         # image, video, webcam loading
 │       └── writer.py         # save JSON + annotated media
