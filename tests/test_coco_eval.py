@@ -13,15 +13,30 @@ def test_coco_eval(tmp_path):
 
     # Minimal COCO annotation (1 image, 1 bbox)
     annotations = {
-        "images": [{"id": 1, "width": 640, "height": 480, "file_name": "test.jpg"}],
-        "annotations": [{"id": 1, "image_id": 1, "category_id": 1, "bbox": [10, 20, 30, 40], "area": 1200, "iscrowd": 0}],
+        "info": {"description": "fake dataset for testing"},
+        "licenses": [],
+        "images": [
+            {"id": 1, "width": 640, "height": 480, "file_name": "test.jpg"}
+        ],
+        "annotations": [
+            {
+                "id": 1,
+                "image_id": 1,
+                "category_id": 1,
+                "bbox": [10, 20, 30, 40],
+                "area": 1200,
+                "iscrowd": 0,
+            }
+        ],
         "categories": [{"id": 1, "name": "test"}],
     }
     with open(ann_file, "w") as f:
         json.dump(annotations, f)
 
     # Minimal prediction in COCO format
-    predictions = [{"image_id": 1, "category_id": 1, "bbox": [10, 20, 30, 40], "score": 0.9}]
+    predictions = [
+        {"image_id": 1, "category_id": 1, "bbox": [10, 20, 30, 40], "score": 0.9}
+    ]
     with open(pred_file, "w") as f:
         json.dump(predictions, f)
 
@@ -32,7 +47,10 @@ def test_coco_eval(tmp_path):
         out_dir=str(out_dir),
     )
 
-    # Validate output
+    # Must return metrics
+    assert "precision" in results
+    assert "recall" in results
+
+    # Reports directory must contain an HTML report
     html_files = [f for f in os.listdir(out_dir) if f.endswith(".html")]
     assert html_files, "No HTML report generated"
-    assert "precision" in results and "recall" in results
