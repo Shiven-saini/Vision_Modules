@@ -140,3 +140,21 @@ def detect_markers(image_path: str, out_dir: str = "results") -> List[Dict[str, 
     save_image(annotated, out_dir, "markers_result.jpg")
     save_json([m.to_dict() for m in markers], out_dir / "markers_result.json")
     return [m.to_dict() for m in markers]
+
+
+# -----------------------------
+# COCO Evaluation
+# -----------------------------
+def coco_eval(pred_file: str, ann_file: str, out_dir: str = "reports") -> Dict[str, float]:
+    """
+    Run COCO-style evaluation on predictions.
+
+    Args:
+        pred_file (str): Path to predictions JSON file.
+        ann_file (str): Path to COCO annotation JSON file.
+        out_dir (str): Directory to save reports.
+
+    Returns:
+        dict: {"precision": float, "recall": float}
+    """
+    return evaluate_coco(pred_file, ann_file, out_dir)
