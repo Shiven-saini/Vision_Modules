@@ -144,8 +144,50 @@ def detect_markers(image_path: str, out_dir: str = "results") -> List[Dict[str, 
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     save_image(annotated, out_dir, "markers_result.jpg")
-    save_json([m.to_dict() for m in markers], out_dir / "markers_result.json")
-    return [m.to_dict() for m in markers]
+
+    # Comprehensive results summary for qrcode, barcode as well
+    results = {
+        "detection_summary": {
+            "image_path": str(image_path),
+            "total_aruco_markers": len(markers),
+            "total_qr_codes": len(qr_codes),
+            "total_barcodes": len(bar_codes),
+            "total_detections": len(markers) + len(qr_codes) + len(bar_codes)
+        },
+        "aruco_markers": [
+            {
+                "type": "aruco_marker",
+                "id": marker.id,
+                "corners": marker.corners,
+                **marker.to_dict()
+            } for marker in markers
+        ],
+        "qr_codes": [
+            {
+                "type": "qr_code",
+                "data": qr_code.data,
+                "data_length": len(qr_code.data),
+                "corners": qr_code.corners,
+                **qr_code.to_dict()
+            } for qr_code in qr_codes
+        ],
+        "barcodes": [
+            {
+                "type": "barcode",
+                "data": barcode.data,
+                "data_length": len(barcode.data),
+                "corners": barcode.corners,
+                **barcode.to_dict()
+            } for barcode in bar_codes
+        ]
+    }
+
+
+    # save_json([m.to_dict() for m in markers], out_dir / "markers_result.json")
+    # return [m.to_dict() for m in markers]
+    save_json(results, out_dir / "markers_result.json")
+    return results
+    
 
 
 # -----------------------------
