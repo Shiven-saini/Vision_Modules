@@ -2,7 +2,7 @@
 import cv2
 from typing import List
 
-from rvm.core.types import Marker, QRCode
+from rvm.core.types import Marker
 
 
 class ArucoDetector:
@@ -32,22 +32,3 @@ class ArucoDetector:
                 markers.append(Marker(id=int(ids[i][0]), corners=points))
         return markers
 
-    def detect_qr(self, image) -> List[QRCode]:
-        """
-        Detect QR codes in the image.
-
-        Args:
-            image (np.ndarray): Input BGR image.
-
-        Returns:
-            List[QRCode]: List of QR codes with data and corners.
-        """
-        detector = cv2.QRCodeDetector()
-        retval, decoded_info, points, _ = detector.detectAndDecodeMulti(image)
-        qrs: List[QRCode] = []
-
-        if retval and points is not None:
-            for data, pts in zip(decoded_info, points):
-                corners = [(int(x), int(y)) for x, y in pts]
-                qrs.append(QRCode(data=data, corners=corners))
-        return qrs
