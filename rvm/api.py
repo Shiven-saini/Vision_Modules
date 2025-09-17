@@ -14,7 +14,8 @@ from typing import List, Dict, Any
 from rvm.detect.yolo import YOLODetector
 from rvm.segment.sam_lite import SamLiteSegmenter
 from rvm.markers.aruco import ArucoDetector
-from rvm.core.visualize import draw_boxes, draw_masks, draw_markers
+from rvm.markers.barcodes import BarCodesDetector
+from rvm.core.visualize import draw_boxes, draw_masks, draw_markers, draw_barcodes, draw_qr_codes
 from rvm.io.loader import load_image, load_video, load_webcam
 from rvm.io.writer import save_image, save_json
 from eval.coco_eval import evaluate_coco
@@ -131,10 +132,15 @@ def segment_image(image_path: str, out_dir: str = "results") -> List[Dict[str, A
 # -----------------------------
 def detect_markers(image_path: str, out_dir: str = "results") -> List[Dict[str, Any]]:
     img = load_image(image_path)
-    detector = ArucoDetector()
-    markers = detector.detect(img)
+    detector_aruco = ArucoDetector()
+    markers = detector_aruco.detect(img)
+    detector_codes = BarCodesDetector()
+    qr_codes, bar_codes = detector_codes.detect(img)
 
     annotated = draw_markers(img, markers)
+    annotated = draw_qr_codes(annotated, qr_codes)
+    annotated = draw_barcodes(annotated, bar_codes)
+
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     save_image(annotated, out_dir, "markers_result.jpg")
