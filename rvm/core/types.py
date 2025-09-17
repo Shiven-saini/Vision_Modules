@@ -43,3 +43,11 @@ class QRCode:
 
     def to_dict(self):
         return asdict(self)
+    
+@dataclass
+class BarCode:
+    data: str
+    corners: List[Tuple[int, int]]
+
+    def to_dict(self):
+        return asdict(self)
