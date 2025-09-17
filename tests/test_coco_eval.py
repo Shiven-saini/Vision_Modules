@@ -1,12 +1,11 @@
 import os
-import subprocess
 import pytest
-
+from rvm.api import coco_eval
 
 @pytest.mark.integration
-def test_coco_eval_cli(tmp_path):
+def test_coco_eval(tmp_path):
     """
-    Integration test: run COCO evaluation CLI and check outputs.
+    Integration test: run COCO evaluation function and check outputs.
     Requires:
       - A preds.json file inside data/images
       - A COCO annotation JSON file at data/annotations.json
@@ -16,25 +15,11 @@ def test_coco_eval_cli(tmp_path):
     out_dir = tmp_path / "reports"
     os.makedirs(out_dir, exist_ok=True)
 
-    # Run CLI via module import
-    result = subprocess.run(
-        [
-            "python",
-            "-m", "rvm.eval.coco_eval",
-            "--images", images_dir,
-            "--ann", ann_file,
-            "--out", str(out_dir),
-        ],
-        capture_output=True,
-        text=True,
+    coco_eval(
+        images_dir=images_dir,
+        ann_file=ann_file,
+        out_dir=str(out_dir),
     )
-
-    # Debug logs
-    print("STDOUT:", result.stdout)
-    print("STDERR:", result.stderr)
-
-    # CLI must finish successfully
-    assert result.returncode == 0, f"CLI failed: {result.stderr}"
 
     # Reports directory must contain an HTML report
     html_files = [f for f in os.listdir(out_dir) if f.endswith(".html")]
