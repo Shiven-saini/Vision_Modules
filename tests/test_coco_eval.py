@@ -16,7 +16,7 @@ def test_coco_eval(tmp_path):
     os.makedirs(out_dir, exist_ok=True)
 
     coco_eval(
-        images_dir=images_dir,
+        pred_file=images_dir,
         ann_file=ann_file,
         out_dir=str(out_dir),
     )
